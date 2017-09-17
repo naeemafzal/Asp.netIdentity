@@ -1,0 +1,145 @@
+﻿@using Identity.Web.Models
+@{var viewMessageGroups = (List<ViewMessagesGroup>)(TempData["ViewMessages"] ?? null);}
+@{if (viewMessageGroups == null) { viewMessageGroups = new List<ViewMessagesGroup>(); }}
+
+@helper StandardMessage(string localMessage, string input)
+{
+    @( string.IsNullOrWhiteSpace(input) ? localMessage : input)
+}
+
+@{
+    var groupCount = 1;
+    foreach (var viewMessagesGroup in viewMessageGroups)
+    {
+        var marginBottom = groupCount == viewMessageGroups.Count ? "20px" : "3px";
+        var autoHideClass = viewMessagesGroup.AutoHide ? "autohide" : "";
+        <div style="padding-top: 5px; margin-top: 5px; margin-bottom: @marginBottom" class="@autoHideClass alert @AlertClass(viewMessagesGroup.MessageType)">
+            @if (viewMessagesGroup.AllowClose)
+            {
+                <button type="button" class="close" style="font-size: 30px;" data-dismiss="alert">x</button>
+            }
+
+            @{ var title = TitleMessage(viewMessagesGroup.MessageType); }
+            @if (!string.IsNullOrWhiteSpace(title))
+            {
+                <p style="font-size: 20px;">@title</p>
+            }
+
+            <ul style="padding-left: 15px;">
+                @foreach (var message in viewMessagesGroup.Messages)
+                {
+                    <li style="font-size: 20px;">
+                        @message
+                    </li>
+                }
+            </ul>
+        </div>
+        groupCount++;
+    }
+}
+
+@functions{
+
+    public string AlertClass(StandardMessages messageType)
+    {
+        switch (messageType)
+        {
+            case StandardMessages.Standard:
+                return "alert-info";
+            case StandardMessages.CustomMessageSuccess:
+                return "alert-success";
+            case StandardMessages.CustomMessageInfo:
+                return "alert-info";
+            case StandardMessages.CustomMessageWarning:
+                return "alert-warning";
+            case StandardMessages.CustomMessageError:
+                return "alert-danger";
+            case StandardMessages.ItemNochange:
+                return "alert-info";
+            case StandardMessages.ItemAlreadyExists:
+                return "alert-danger";
+            case StandardMessages.ItemIsInUse:
+                return "alert-danger";
+            case StandardMessages.ItemNotFound:
+                return "alert-danger";
+            case StandardMessages.ItemCreated:
+                return "alert-success";
+            case StandardMessages.ErrorCreating:
+                return "alert-danger";
+            case StandardMessages.ItemUpdated:
+                return "alert-success";
+            case StandardMessages.ErrorUpdating:
+                return "alert-danger";
+            case StandardMessages.ItemDeleted:
+                return "alert-success";
+            case StandardMessages.ErrorDeleting:
+                return "alert-danger";
+            case StandardMessages.ItemRestored:
+                return "alert-success";
+            case StandardMessages.ErrorRestoring:
+                return "alert-danger";
+            case StandardMessages.ItemArchived:
+                return "alert-success";
+            case StandardMessages.ErrorArchiving:
+                return "alert-danger";
+            case StandardMessages.ItemUnArchived:
+                return "alert-success";
+            case StandardMessages.ErrorUnArchiving:
+                return "alert-danger";
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public string TitleMessage(StandardMessages messageType)
+    {
+        switch (messageType)
+        {
+            case StandardMessages.Standard:
+                return "";
+            case StandardMessages.CustomMessageSuccess:
+                return "";
+            case StandardMessages.CustomMessageInfo:
+                return "";
+            case StandardMessages.CustomMessageWarning:
+                return "";
+            case StandardMessages.CustomMessageError:
+                return "";
+            case StandardMessages.ItemNochange:
+                return "Nothing has changed";
+            case StandardMessages.ItemAlreadyExists:
+                return "Item already exists";
+            case StandardMessages.ItemIsInUse:
+                return "Item is in use";
+            case StandardMessages.ItemNotFound:
+                return "Item not found";
+            case StandardMessages.ItemCreated:
+                return "Item has been created";
+            case StandardMessages.ErrorCreating:
+                return "Error creating Item";
+            case StandardMessages.ItemUpdated:
+                return "Item has been updated";
+            case StandardMessages.ErrorUpdating:
+                return "Error updating Item";
+            case StandardMessages.ItemDeleted:
+                return "Item has been deleted";
+            case StandardMessages.ErrorDeleting:
+                return "Error deleting Item";
+            case StandardMessages.ItemRestored:
+                return "Item has been restored";
+            case StandardMessages.ErrorRestoring:
+                return "Error restoring Item";
+            case StandardMessages.ItemArchived:
+                return "Item has been archived";
+            case StandardMessages.ErrorArchiving:
+                return "Error archiving Item";
+            case StandardMessages.ItemUnArchived:
+                return "Item has been unarchived";
+            case StandardMessages.ErrorUnArchiving:
+                return "Error unarchiving Item";
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+}

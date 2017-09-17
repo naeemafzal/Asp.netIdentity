@@ -1,0 +1,274 @@
+﻿@using Identity.Web.Models
+@{ var viewMessage = (ViewMessage)ViewData["ViewMessage"];}
+
+@helper StandardMessage(string localMessage, string input)
+{
+    @( string.IsNullOrWhiteSpace(input) ? localMessage : input)
+}
+
+@{
+    switch (viewMessage.MessageType)
+    {
+        case StandardMessages.CustomMessageSuccess:
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @message
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.CustomMessageInfo:
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @message
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.CustomMessageWarning:
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @message
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.CustomMessageError:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @message
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemNochange:
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Nothing has changed", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemAlreadyExists:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item already exists.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemIsInUse:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item is in use.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemNotFound:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item not found.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemCreated:
+            <div class="alert alert-success">
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item has been created.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ErrorCreating:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Error creating Item.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemUpdated:
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item has been updated.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ErrorUpdating:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Error updating Item.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemDeleted:
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item has been deleted.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ErrorDeleting:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Error deleting Item.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemRestored:
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item has been restored.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ErrorRestoring:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Error restoring Item.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemArchived:
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item has been archived.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ErrorArchiving:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Error archiving Item.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ItemUnArchived:
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Item has been unarchived.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        case StandardMessages.ErrorUnArchiving:
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <ul>
+                    <li>
+                        @foreach (var message in viewMessage.Messages)
+                        {
+                            @StandardMessage($"Error unarchiving Item.", @message)
+                        }
+                    </li>
+                </ul>
+            </div>
+            break;
+        default:
+            throw new ArgumentOutOfRangeException();
+    }
+}
